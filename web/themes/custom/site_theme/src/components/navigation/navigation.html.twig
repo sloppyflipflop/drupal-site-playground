@@ -1,0 +1,30 @@
+{{ attach_library('site_theme/navigation') }}
+
+{% import _self as menus %}
+
+{{ menus.render_items(items, attributes, 0) }}
+
+{% macro render_items(items, attributes, level) %}
+  {% import _self as menus %}
+
+  {% if items %}
+    <ul{{ attributes.addClass('navigation__list') }}>
+      {% for item in items %}
+        <li{{ item.attributes.addClass('navigation__item') }}>
+          {{ link(item.title, item.url, {
+            'class': ['navigation__link'],
+            'aria-current': item.in_active_trail ? 'page' : null
+          }) }}
+
+          {% if item.below %}
+            {{ menus.render_items(
+              item.below,
+              create_attribute(),
+              level + 1
+            ) }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

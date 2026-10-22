@@ -1,0 +1,24 @@
+base:
+  css:
+    base:
+      src/base/base.css: {}
+
+header:
+  css:
+    component:
+      src/components/header/header.css: {}
+  js:
+    src/components/header/header.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+footer:
+  css:
+    component:
+      src/components/footer/footer.css: {}
+
+navigation:
+  css:
+    component:
+      src/components/navigation/navigation.css: {}

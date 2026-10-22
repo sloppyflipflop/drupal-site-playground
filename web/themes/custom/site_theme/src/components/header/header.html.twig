@@ -1,0 +1,33 @@
+{{ attach_library('site_theme/header') }}
+
+<header class="site-header" role="banner">
+  <div class="container site-header__inner">
+
+    <a class="site-header__brand" href="{{ path('<front>') }}">
+      {{ site_name|default('Site Playground') }}
+    </a>
+
+    {{ page.header }}
+
+    <button
+      class="site-header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-primary-navigation"
+    >
+      <span class="visually-hidden">
+        {{ 'Toggle navigation'|t }}
+      </span>
+      <span aria-hidden="true">☰</span>
+    </button>
+
+    <nav
+      id="site-primary-navigation"
+      class="site-header__navigation"
+      aria-label="{{ 'Primary navigation'|t }}"
+    >
+      {{ page.primary_menu }}
+    </nav>
+
+  </div>
+</header>

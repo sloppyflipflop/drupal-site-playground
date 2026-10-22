@@ -1,0 +1,11 @@
+{{ attach_library('site_theme/footer') }}
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    {{ page.footer }}
+
+    <p class="site-footer__copyright">
+      &copy; {{ 'now'|date('Y') }} {{ site_name|default('Site Playground') }}
+    </p>
+  </div>
+</footer>

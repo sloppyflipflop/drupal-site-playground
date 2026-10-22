@@ -1,0 +1,14 @@
+name: Site Theme
+type: theme
+description: "Custom component-based Drupal theme."
+core_version_requirement: ^11
+base theme: stable9
+
+libraries:
+  - site_theme/base
+
+regions:
+  header: Header
+  primary_menu: Primary navigation
+  content: Content
+  footer: Footer

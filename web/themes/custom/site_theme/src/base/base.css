@@ -1,0 +1,32 @@
+:root {
+  --color-primary: #8c1d40;
+  --color-accent: #ffc627;
+  --color-text: #191919;
+  --color-background: #ffffff;
+
+  --container-width: 1200px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+.container {
+  width: min(100% - 2rem, var(--container-width));
+  margin-inline: auto;
+}
+
+.site-main {
+  min-height: 60vh;
+  padding-block: 2rem;
+}
