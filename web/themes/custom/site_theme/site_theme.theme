@@ -1,0 +1,26 @@
+
+<?php
+
+/**
+ * @file
+ * Theme hooks and preprocess functions for Site Theme.
+ */
+
+use Drupal\Core\Extension\ThemeSettingsProvider;
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function site_theme_preprocess_block(array &$variables): void {
+  if (($variables['base_plugin_id'] ?? '') !== 'system_branding_block') {
+    return;
+  }
+
+  $settings = \Drupal::service(ThemeSettingsProvider::class);
+
+  $variables['parent_organization'] = trim(
+    (string) ($settings->getSetting('parent_organization', 'site_theme') ?? '')
+  );
+
+  $variables['#cache']['tags'][] = 'config:site_theme.settings';
+}

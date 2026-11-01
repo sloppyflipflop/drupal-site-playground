@@ -1,0 +1,30 @@
+
+{{ attach_library('site_theme/site-identity') }}
+
+{% if site_name %}
+  <div class="site-identity{{ parent_organization ? ' site-identity--with-parent' : '' }}">
+
+    {% if parent_organization %}
+      <div class="site-identity__parent">
+        {% if parent_organization_url %}
+          <a href="{{ parent_organization_url }}">
+            {{ parent_organization }}
+          </a>
+        {% else %}
+          {{ parent_organization }}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="site-identity__name">
+      <a
+        class="site-identity__highlight"
+        href="{{ path('<front>') }}"
+        rel="home"
+      >
+        {{ site_name }}
+      </a>
+    </div>
+
+  </div>
+{% endif %}

@@ -1,43 +1,315 @@
-.navigation__list {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+/**
+ * ASU Unity - Primary Navigation
+ *
+ * Drupal-managed navigation with responsive
+ * dropdowns and a Home icon.
+ *
+ * Component styles are scoped to .navigation__*
+ * to avoid affecting other site menus.
+ */
+
+/* Menu resets */
+
+.navigation__list,
+.navigation__submenu-list {
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
+}
+
+/* Desktop navigation */
+
+.navigation__list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0;
 }
 
 .navigation__item {
-  margin: 0;
-  padding: 0;
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 0;
 }
+
+.navigation__item-row {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Navigation links */
 
 .navigation__link {
-  display: block;
-  padding: 0.75rem 1rem;
-  color: var(--color-text);
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 16px;
+
+  color: #191919;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  white-space: nowrap;
   text-decoration: none;
-  border-radius: 0.25rem;
+
+  border-bottom: 4px solid transparent;
 }
 
-.navigation__link:hover {
-  background-color: #f2f2f2;
+.navigation__link:hover,
+.navigation__item--active > .navigation__item-row > .navigation__link,
+.navigation__item--active > .navigation__link {
+  color: #191919;
+  border-bottom-color: #ffc627;
 }
 
-.navigation__link:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
+/* Home icon */
+
+.navigation__item--home {
+  flex: 0 0 auto;
 }
 
-@media (max-width: 767px) {
+.navigation__link--home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 12px;
+}
+
+.navigation__link--home svg {
+  display: block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Only show the Home icon on desktop */
+
+.navigation__home-text {
+  display: none;
+}
+
+/* Dropdown toggle buttons */
+
+.navigation__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px;
+
+  color: #191919;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.navigation__toggle:hover {
+  background-color: #f1f1f1;
+}
+
+.navigation__toggle span {
+  display: inline-block;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: transform 150ms ease;
+}
+
+.navigation__toggle[aria-expanded="true"] span {
+  transform: rotate(180deg);
+}
+
+/* Accessible keyboard focus */
+
+.navigation__link:focus-visible,
+.navigation__toggle:focus-visible {
+  outline: 3px solid #191919;
+  outline-offset: -3px;
+}
+
+/* Hidden dropdowns */
+
+.navigation__submenu[hidden] {
+  display: none !important;
+}
+
+/* Desktop dropdown panels */
+
+.navigation__submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1031;
+
+  min-width: 240px;
+  max-width: min(500px, 90vw);
+  max-height: calc(100dvh - 160px);
+  overflow-y: auto;
+
+  background-color: #fff;
+  border: 1px solid #d0d0d0;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 12%);
+}
+
+/* Dropdown lists */
+
+.navigation__submenu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.navigation__submenu .navigation__item {
+  width: 100%;
+}
+
+.navigation__submenu .navigation__item-row {
+  width: 100%;
+}
+
+/* Dropdown links */
+
+.navigation__submenu .navigation__link {
+  flex: 1;
+  justify-content: flex-start;
+  min-width: 0;
+  width: 100%;
+  padding: 12px 16px;
+
+  font-weight: 400;
+  white-space: normal;
+  text-align: left;
+  border-bottom: 0;
+}
+
+.navigation__submenu .navigation__link:hover {
+  color: #8c1d40;
+  text-decoration: underline;
+}
+
+/* Nested dropdowns */
+
+.navigation__submenu .navigation__submenu {
+  top: 0;
+  left: 100%;
+}
+
+/* Prevent a dropdown from inheriting desktop
+   horizontal menu layout rules */
+
+.navigation__submenu .navigation__submenu-list {
+  flex-direction: column;
+}
+
+/* Tablet and mobile navigation */
+
+@media (max-width: 1260px) {
   .navigation__list {
     flex-direction: column;
     align-items: stretch;
+    gap: 0;
   }
 
+  .navigation__item {
+    width: 100%;
+    flex: 0 1 auto;
+    border-bottom: 1px solid #d0d0d0;
+  }
+
+  .navigation__item-row {
+    width: 100%;
+  }
+
+  /* Full-width mobile links */
+
   .navigation__link {
-    padding: 1rem;
+    flex: 1;
+    justify-content: flex-start;
+    min-width: 0;
+    min-height: 48px;
+    padding: 16px 24px;
+
+    white-space: normal;
+    text-align: left;
+    border-bottom: 0;
+  }
+
+  .navigation__link:hover,
+  .navigation__item--active > .navigation__item-row > .navigation__link,
+  .navigation__item--active > .navigation__link {
+    background-color: #f7f7f7;
+    border-bottom: 0;
+  }
+
+  /* Home icon with visible text on mobile */
+
+  .navigation__link--home {
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 16px 24px;
+  }
+
+  .navigation__home-text {
+    display: inline;
+  }
+
+  /* Mobile dropdown buttons */
+
+  .navigation__toggle {
+    min-width: 48px;
+    min-height: 48px;
+    margin-right: 12px;
+  }
+
+  /* Expanded dropdowns stay within the menu */
+
+  .navigation__submenu,
+  .navigation__submenu .navigation__submenu {
+    position: static;
+
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+
+    background-color: #f7f7f7;
+    border: 0;
+    box-shadow: none;
+  }
+
+  /* Nested menu indentation */
+
+  .navigation__submenu .navigation__link {
+    padding-left: 40px;
+  }
+
+  .navigation__submenu .navigation__submenu .navigation__link {
+    padding-left: 56px;
+  }
+
+  /* Mobile dropdown active state */
+
+  .navigation__toggle[aria-expanded="true"] {
+    background-color: #e8e8e8;
+  }
+}
+
+/* Reduced-motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .navigation__toggle span {
+    transition: none;
   }
 }

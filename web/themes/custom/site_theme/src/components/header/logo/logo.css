@@ -1,0 +1,25 @@
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.site-logo img {
+  display: block;
+  width: auto;
+  height: 72px;
+  margin: 20px 1rem 20px 0;
+}
+
+.site-logo:focus-visible {
+  outline: 3px solid #191919;
+  outline-offset: 4px;
+}
+
+@media (max-width: 1260px) {
+  .site-logo img {
+    height: 32px;
+    margin: 0 0 1rem 2rem;
+  }
+}

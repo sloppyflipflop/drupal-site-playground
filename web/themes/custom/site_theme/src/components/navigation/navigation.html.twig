@@ -1,30 +1,124 @@
+
+{#
+/**
+ * @file
+ * ASU Unity-style primary navigation.
+ *
+ * Menu links are managed through Drupal.
+ * The first top-level link to the front page is
+ * displayed as a Home icon at the beginning.
+ */
+#}
+
 {{ attach_library('site_theme/navigation') }}
 
 {% import _self as menus %}
 
-{{ menus.render_items(items, attributes, 0) }}
+{# Identify the first configured Home link. #}
+{% set home_item = null %}
 
-{% macro render_items(items, attributes, level) %}
+{% for item in items %}
+  {% set is_home = item.url.isRouted()
+    and item.url.getRouteName() == '<front>' %}
+
+  {% if is_home and home_item is null %}
+    {% set home_item = item %}
+  {% endif %}
+{% endfor %}
+
+<ul{{ attributes.addClass('navigation__list') }}>
+
+  {# Render the Drupal-managed Home link first. #}
+  {% if home_item %}
+    <li class="navigation__item navigation__item--home">
+      <a
+        href="{{ home_item.url.toString() }}"
+        class="navigation__link navigation__link--home"
+        rel="home"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M12 2 2 11h3v10h6v-7h2v7h6V11h3L12 2z"/>
+        </svg>
+
+        <span class="visually-hidden">
+          {{ 'Home'|t }}
+        </span>
+
+        <span class="navigation__home-text" aria-hidden="true">
+          {{ home_item.title }}
+        </span>
+      </a>
+    </li>
+  {% endif %}
+
+  {# Render all remaining menu links. #}
+  {% for item in items %}
+    {% set is_home = item.url.isRouted()
+      and item.url.getRouteName() == '<front>' %}
+
+    {% if not is_home %}
+      {{ menus.render_item(item, 'main-' ~ loop.index) }}
+    {% endif %}
+  {% endfor %}
+
+</ul>
+
+{% macro render_item(item, branch) %}
   {% import _self as menus %}
 
-  {% if items %}
-    <ul{{ attributes.addClass('navigation__list') }}>
-      {% for item in items %}
-        <li{{ item.attributes.addClass('navigation__item') }}>
-          {{ link(item.title, item.url, {
-            'class': ['navigation__link'],
-            'aria-current': item.in_active_trail ? 'page' : null
-          }) }}
+  {% set has_children = item.below is not empty %}
+  {% set submenu_id = 'site-nav-' ~ branch %}
 
-          {% if item.below %}
-            {{ menus.render_items(
-              item.below,
-              create_attribute(),
-              level + 1
+  <li{{ item.attributes.addClass([
+    'navigation__item',
+    has_children ? 'navigation__item--expanded',
+    item.in_active_trail ? 'navigation__item--active'
+  ]) }}>
+
+    <div class="navigation__item-row">
+      {{ link(item.title, item.url, {
+        'class': ['navigation__link']
+      }) }}
+
+      {% if has_children %}
+        <button
+          type="button"
+          class="navigation__toggle"
+          aria-expanded="false"
+          aria-controls="{{ submenu_id }}"
+          aria-label="{{ 'Expand submenu for @title'|t({
+            '@title': item.title
+          }) }}"
+        >
+          <span aria-hidden="true">⌄</span>
+        </button>
+      {% endif %}
+    </div>
+
+    {% if has_children %}
+      <div
+        id="{{ submenu_id }}"
+        class="navigation__submenu"
+        hidden
+      >
+        <ul class="navigation__submenu-list">
+          {% for child in item.below %}
+            {{ menus.render_item(
+              child,
+              branch ~ '-' ~ loop.index
             ) }}
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+  </li>
 {% endmacro %}

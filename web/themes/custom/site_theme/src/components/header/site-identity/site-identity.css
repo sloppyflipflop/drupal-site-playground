@@ -1,0 +1,112 @@
+/* ASU Unity - Site Identity */
+
+.site-identity {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+/* Parent organization */
+
+.site-identity__parent {
+  color: #484848;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+
+/* Site title */
+
+.site-identity__name {
+  color: #191919;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: break-word;
+}
+
+/* Smaller title when a parent organization exists */
+
+.site-identity--with-parent .site-identity__name {
+  font-size: 1.5rem;
+}
+
+/* Site title link */
+
+.site-identity__name a {
+  color: #191919;
+  text-decoration: none;
+}
+
+/* ASU standard hover behavior */
+
+.site-identity__name a:hover,
+.site-identity__parent a:hover {
+  color: #191919;
+  text-decoration: underline;
+  text-decoration-color: #191919;
+  text-underline-offset: 0.25rem;
+}
+
+/* Accessible keyboard focus */
+
+.site-identity__name a:focus-visible,
+.site-identity__parent a:focus-visible {
+  outline: 3px solid #191919;
+  outline-offset: 4px;
+}
+
+/* Responsive title styling */
+
+@media (max-width: 1260px) {
+  .site-identity__parent {
+    font-size: 0.75rem;
+  }
+
+  .site-identity__name,
+  .site-identity--with-parent .site-identity__name {
+    font-size: 1.5rem;
+  }
+}
+
+/* ASU Unity-style gold title sweep */
+
+.site-identity__highlight {
+  display: inline-block;
+
+  background-image: linear-gradient(
+    to right,
+    transparent 51%,
+    #ffc627 51%,
+    #ffc627 95%,
+    transparent 95%
+  );
+
+  background-size: 200%;
+  background-position: 0% 0;
+  background-repeat: no-repeat;
+
+  transition: background-position 1.5s cubic-bezier(0.19, 1, 0.19, 1);
+}
+
+/* Triggered on eligible first visits */
+
+.site-identity__highlight.active {
+  background-position: 200% 0;
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .site-identity__highlight {
+    transition: none;
+  }
+
+  .site-identity__highlight.active {
+    background-position: 200% 0;
+  }
+}

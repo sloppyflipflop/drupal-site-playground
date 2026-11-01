@@ -1,0 +1,7 @@
+site_theme.settings:
+  type: theme_settings
+  label: "Site Theme settings"
+  mapping:
+    parent_organization:
+      type: string
+      label: "Parent organization"

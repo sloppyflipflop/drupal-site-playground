@@ -22,3 +22,28 @@ navigation:
   css:
     component:
       src/components/navigation/navigation.css: {}
+  js:
+    src/components/navigation/navigation.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+universal-navigation:
+  css:
+    component:
+      src/components/header/universal-navigation/universal-navigation.css: {}
+
+logo:
+  css:
+    component:
+      src/components/header/logo/logo.css: {}
+
+site-identity:
+  css:
+    component:
+      src/components/header/site-identity/site-identity.css: {}
+  js:
+    src/components/header/site-identity/site-identity.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

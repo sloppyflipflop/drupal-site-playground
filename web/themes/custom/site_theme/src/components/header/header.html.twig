@@ -1,33 +1,43 @@
 {{ attach_library('site_theme/header') }}
 
 <header class="site-header" role="banner">
-  <div class="container site-header__inner">
 
-    <a class="site-header__brand" href="{{ path('<front>') }}">
-      {{ site_name|default('Site Playground') }}
-    </a>
+  {# ASU universal navigation #}
+  {% include '@site_theme/src/components/header/universal-navigation/universal-navigation.html.twig' %}
 
-    {{ page.header }}
+  {# Main site header #}
+  <div class="site-header__main">
+    <div class="container site-header__inner">
 
-    <button
-      class="site-header__toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="site-primary-navigation"
-    >
-      <span class="visually-hidden">
-        {{ 'Toggle navigation'|t }}
-      </span>
-      <span aria-hidden="true">☰</span>
-    </button>
+      {# ASU logo component #}
+{% include '@site_theme/src/components/header/logo/logo.html.twig' %}
 
-    <nav
-      id="site-primary-navigation"
-      class="site-header__navigation"
-      aria-label="{{ 'Primary navigation'|t }}"
-    >
-      {{ page.primary_menu }}
-    </nav>
+{# Drupal-managed site identity #}
+{{ page.header }}
 
+      {# Mobile navigation toggle #}
+      <button
+        class="site-header__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-primary-navigation"
+      >
+        <span class="visually-hidden">
+          {{ 'Toggle navigation'|t }}
+        </span>
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      {# Primary navigation #}
+      <nav
+        id="site-primary-navigation"
+        class="site-header__navigation"
+        aria-label="{{ 'Primary navigation'|t }}"
+      >
+        {{ page.primary_menu }}
+      </nav>
+
+    </div>
   </div>
+
 </header>

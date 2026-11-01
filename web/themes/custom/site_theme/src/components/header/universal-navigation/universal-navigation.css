@@ -1,0 +1,65 @@
+/* ASU Universal Navigation */
+
+.universal-navigation {
+  background-color: #e8e8e8;
+  padding: 0.5rem 0;
+}
+
+.universal-navigation__container {
+  width: 100%;
+  max-width: 1224px;
+  margin-inline: auto;
+  padding-inline: 12px;
+}
+
+.universal-navigation nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.universal-navigation__links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.5rem;
+}
+
+.universal-navigation a {
+  display: inline-flex;
+  align-items: center;
+  color: #191919;
+  font-size: 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.universal-navigation a:hover {
+  text-decoration: underline;
+}
+
+.universal-navigation a:focus-visible {
+  outline: 2px solid #191919;
+  outline-offset: 4px;
+}
+
+/* Visually hidden accessibility links */
+.universal-navigation__skip:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Universal navigation moves into mobile menu */
+@media (max-width: 1260px) {
+  .universal-navigation {
+    display: none;
+  }
+}
